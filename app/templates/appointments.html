@@ -2,155 +2,267 @@
 
 {% block content %}
 
-<h2 class="mb-4">
-    Appointments
-</h2>
+<div class="animated">
 
-<form method="POST"
-      action="/add-appointment"
-      class="card p-4 shadow mb-4">
+    <h2 class="mb-4">
+        <i class="fas fa-calendar-check me-2"></i>
+        Manage Appointments
+    </h2>
 
-    <div class="mb-3">
+    <div class="card shadow-glass border-0 mb-4">
 
-        <input
-            type="text"
-            name="patient_name"
-            class="form-control"
-            placeholder="Patient Name"
-            required
-        >
+        <div class="card-header">
+
+            <h5 class="m-0 text-white">
+                <i class="fas fa-plus-circle me-2"></i>
+                Schedule New Appointment
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST" action="/add-appointment">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label fw-600">Patient Name</label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-transparent border-end-0">
+                                <i class="fas fa-user text-primary"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                name="patient_name"
+                                class="form-control border-start-0 bg-transparent"
+                                placeholder="Enter patient name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label fw-600">Doctor Name</label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-transparent border-end-0">
+                                <i class="fas fa-user-md text-primary"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                name="doctor_name"
+                                class="form-control border-start-0 bg-transparent"
+                                placeholder="Enter doctor name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label fw-600">Appointment Date</label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-transparent border-end-0">
+                                <i class="fas fa-calendar text-primary"></i>
+                            </span>
+
+                            <input
+                                type="date"
+                                name="appointment_date"
+                                class="form-control border-start-0 bg-transparent"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-success">
+                    <i class="fas fa-calendar-plus me-2"></i>
+                    Schedule Appointment
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
 
-    <div class="mb-3">
+    <div class="card shadow-glass border-0">
 
-        <input
-            type="text"
-            name="doctor_name"
-            class="form-control"
-            placeholder="Doctor Name"
-            required
-        >
+        <div class="card-header">
+
+            <h5 class="m-0 text-white">
+                <i class="fas fa-list me-2"></i>
+                Appointment Records
+            </h5>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table mb-0">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th><i class="fas fa-user me-2"></i>Patient</th>
+
+                        <th><i class="fas fa-user-md me-2"></i>Doctor</th>
+
+                        <th><i class="fas fa-calendar-alt me-2"></i>Date</th>
+
+                        <th><i class="fas fa-info-circle me-2"></i>Status</th>
+
+                        <th><i class="fas fa-file me-2"></i>Report</th>
+
+                        <th class="text-center"><i class="fas fa-cogs me-2"></i>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% if appointments %}
+
+                        {% for appointment in appointments %}
+
+                        <tr>
+
+                            <td>
+                                <strong>{{ appointment.patient_name }}</strong>
+                            </td>
+
+                            <td>
+                                {{ appointment.doctor_name }}
+                            </td>
+
+                            <td>
+                                <i class="fas fa-calendar-day me-1" style="color: var(--primary);"></i>
+                                {{ appointment.appointment_date }}
+                            </td>
+
+                            <td>
+
+                                {% if appointment.status == 'completed' %}
+                                    <span class="badge badge-success">
+                                        <i class="fas fa-check-circle me-1"></i>
+                                        Completed
+                                    </span>
+                                {% elif appointment.status == 'pending' %}
+                                    <span class="badge badge-primary">
+                                        <i class="fas fa-hourglass-half me-1"></i>
+                                        Pending
+                                    </span>
+                                {% else %}
+                                    <span class="badge" style="background: var(--gradient-2); color: white;">
+                                        {{ appointment.status }}
+                                    </span>
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if appointment.report_filename %}
+
+                                    <a
+                                      href="{{ url_for(
+                                        'static',
+                                        filename='uploads/reports/' +
+                                        appointment.report_filename
+                                      ) }}"
+                                      target="_blank"
+                                      class="btn btn-info btn-sm">
+
+                                        <i class="fas fa-download me-1"></i>
+                                        View Report
+
+                                    </a>
+
+                                {% else %}
+
+                                    <span class="text-muted">No Report</span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <a href="/edit-appointment/{{ appointment.id }}"
+                                   class="btn btn-warning btn-sm"
+                                   title="Edit appointment">
+
+                                    <i class="fas fa-edit"></i>
+
+                                </a>
+
+                                <a href="/upload-report/{{ appointment.id }}"
+                                   class="btn btn-primary btn-sm"
+                                   title="Upload report">
+
+                                    <i class="fas fa-upload"></i>
+
+                                </a>
+
+                                <a href="/delete-appointment/{{ appointment.id }}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Are you sure you want to delete this appointment?')"
+                                   title="Delete appointment">
+
+                                    <i class="fas fa-trash"></i>
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="6" class="text-center py-4">
+
+                                <i class="fas fa-inbox" style="font-size: 3rem; color: var(--muted);"></i>
+
+                                <p class="text-muted mt-2">No appointments found. Schedule a new appointment to get started.</p>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
-    <div class="mb-3">
-
-        <input
-            type="date"
-            name="appointment_date"
-            class="form-control"
-            required
-        >
-
-    </div>
-
-    <button class="btn btn-success">
-        Add Appointment
-    </button>
-
-</form>
-
-<table class="table table-bordered table-striped shadow">
-
-    <thead class="table-dark">
-
-        <tr>
-
-            <th>Patient</th>
-
-            <th>Doctor</th>
-
-            <th>Date</th>
-
-            <th>Status</th>
-
-            <th>Report</th>
-
-            <th>Actions</th>
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        {% for appointment in appointments %}
-
-        <tr>
-
-            <td>
-                {{ appointment.patient_name }}
-            </td>
-
-            <td>
-                {{ appointment.doctor_name }}
-            </td>
-
-            <td>
-                {{ appointment.appointment_date }}
-            </td>
-
-            <td>
-                {{ appointment.status }}
-            </td>
-
-            <td>
-
-                {% if appointment.report_filename %}
-
-                    <a
-                      href="{{ url_for(
-                        'static',
-                        filename='uploads/reports/' +
-                        appointment.report_filename
-                      ) }}"
-                      target="_blank"
-                      class="btn btn-info btn-sm">
-
-                        View Report
-
-                    </a>
-
-                {% else %}
-
-                    No Report
-
-                {% endif %}
-
-            </td>
-
-            <td>
-
-                <a href="/edit-appointment/{{ appointment.id }}"
-                   class="btn btn-warning btn-sm">
-
-                    Edit
-
-                </a>
-
-                <a href="/upload-report/{{ appointment.id }}"
-                   class="btn btn-primary btn-sm">
-
-                    Upload
-
-                </a>
-
-                <a href="/delete-appointment/{{ appointment.id }}"
-                   class="btn btn-danger btn-sm">
-
-                    Delete
-
-                </a>
-
-            </td>
-
-        </tr>
-
-        {% endfor %}
-
-    </tbody>
-
-</table>
+</div>
 
 {% endblock %}

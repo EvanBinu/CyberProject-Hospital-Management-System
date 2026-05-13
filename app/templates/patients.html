@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Patients
+</h2>
+
+<form method="POST"
+      action="/add-patient"
+      class="card p-4 shadow mb-4">
+
+    <div class="mb-3">
+
+        <input
+            type="text"
+            name="patient_name"
+            class="form-control"
+            placeholder="Patient Name"
+            required
+        >
+
+    </div>
+
+    <div class="mb-3">
+
+        <input
+            type="number"
+            name="age"
+            class="form-control"
+            placeholder="Age"
+            required
+        >
+
+    </div>
+
+    <div class="mb-3">
+
+        <input
+            type="text"
+            name="diagnosis"
+            class="form-control"
+            placeholder="Diagnosis"
+            required
+        >
+
+    </div>
+
+    <button class="btn btn-primary">
+        Add Patient
+    </button>
+
+</form>
+
+<table class="table table-bordered table-striped shadow">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>Name</th>
+
+            <th>Age</th>
+
+            <th>Diagnosis</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for patient in patients %}
+
+        <tr>
+
+            <td>{{ patient.patient_name }}</td>
+
+            <td>{{ patient.age }}</td>
+
+            <td>{{ patient.diagnosis }}</td>
+
+            <td>
+
+    <a href="/edit-patient/{{ patient.id }}"
+       class="btn btn-warning btn-sm">
+
+        Edit
+
+    </a>
+
+    <a href="/delete-patient/{{ patient.id }}"
+       class="btn btn-danger btn-sm">
+
+        Delete
+
+    </a>
+
+</td>
+
+                <a href="/delete-patient/{{ patient.id }}"
+                   class="btn btn-danger btn-sm">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

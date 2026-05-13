@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Appointments
+</h2>
+
+<form method="POST"
+      action="/add-appointment"
+      class="card p-4 shadow mb-4">
+
+    <div class="mb-3">
+
+        <input
+            type="text"
+            name="patient_name"
+            class="form-control"
+            placeholder="Patient Name"
+            required
+        >
+
+    </div>
+
+    <div class="mb-3">
+
+        <input
+            type="text"
+            name="doctor_name"
+            class="form-control"
+            placeholder="Doctor Name"
+            required
+        >
+
+    </div>
+
+    <div class="mb-3">
+
+        <input
+            type="date"
+            name="appointment_date"
+            class="form-control"
+            required
+        >
+
+    </div>
+
+    <button class="btn btn-success">
+        Add Appointment
+    </button>
+
+</form>
+
+<table class="table table-bordered table-striped shadow">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>Patient</th>
+
+            <th>Doctor</th>
+
+            <th>Date</th>
+
+            <th>Status</th>
+
+            <th>Report</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for appointment in appointments %}
+
+        <tr>
+
+            <td>
+                {{ appointment.patient_name }}
+            </td>
+
+            <td>
+                {{ appointment.doctor_name }}
+            </td>
+
+            <td>
+                {{ appointment.appointment_date }}
+            </td>
+
+            <td>
+                {{ appointment.status }}
+            </td>
+
+            <td>
+
+                {% if appointment.report_filename %}
+
+                    <a
+                      href="{{ url_for(
+                        'static',
+                        filename='uploads/reports/' +
+                        appointment.report_filename
+                      ) }}"
+                      target="_blank"
+                      class="btn btn-info btn-sm">
+
+                        View Report
+
+                    </a>
+
+                {% else %}
+
+                    No Report
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                <a href="/edit-appointment/{{ appointment.id }}"
+                   class="btn btn-warning btn-sm">
+
+                    Edit
+
+                </a>
+
+                <a href="/upload-report/{{ appointment.id }}"
+                   class="btn btn-primary btn-sm">
+
+                    Upload
+
+                </a>
+
+                <a href="/delete-appointment/{{ appointment.id }}"
+                   class="btn btn-danger btn-sm">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

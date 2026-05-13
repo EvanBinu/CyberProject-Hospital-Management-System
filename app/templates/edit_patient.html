@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Edit Patient
+</h2>
+
+<form method="POST"
+      class="card p-4 shadow">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Patient Name
+        </label>
+
+        <input
+            type="text"
+            name="patient_name"
+            class="form-control"
+            value="{{ patient.patient_name }}"
+            required
+        >
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Age
+        </label>
+
+        <input
+            type="number"
+            name="age"
+            class="form-control"
+            value="{{ patient.age }}"
+            required
+        >
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Diagnosis
+        </label>
+
+        <input
+            type="text"
+            name="diagnosis"
+            class="form-control"
+            value="{{ patient.diagnosis }}"
+            required
+        >
+
+    </div>
+
+    <button class="btn btn-primary">
+
+        Update Patient
+
+    </button>
+
+</form>
+
+{% endblock %}

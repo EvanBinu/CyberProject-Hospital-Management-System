@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4 fw-bold">
+    Dashboard
+</h1>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Total Patients
+                </h5>
+
+                <h1 class="display-4 text-primary">
+
+                    {{ total_patients }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Total Appointments
+                </h5>
+
+                <h1 class="display-4 text-success">
+
+                    {{ total_appointments }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Current Role
+                </h5>
+
+                <h2 class="text-danger">
+
+                    {{ current_user.role }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="mt-5">
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <h4>
+                Welcome to Secure Hospital
+                Management System
+            </h4>
+
+            <p class="text-muted">
+
+                Manage patients, appointments,
+                reports, and hospital operations
+                securely.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

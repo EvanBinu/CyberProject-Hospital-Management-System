@@ -1,0 +1,14 @@
+body {
+
+    font-family: Arial, sans-serif;
+}
+
+.card {
+
+    border-radius: 15px;
+}
+
+.navbar-brand {
+
+    font-size: 1.4rem;
+}

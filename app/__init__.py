@@ -9,9 +9,14 @@ from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect
 
 from flask_talisman import Talisman
+from flask_limiter import Limiter
 
+from flask_limiter.util import get_remote_address
 from dotenv import load_dotenv
-
+from flask import (
+    Flask,
+    render_template
+)
 import os
 
 db = SQLAlchemy()
@@ -21,7 +26,9 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 
 csrf = CSRFProtect()
-
+limiter = Limiter(
+    key_func=get_remote_address
+)
 
 def create_app():
 
@@ -60,7 +67,7 @@ def create_app():
     login_manager.init_app(app)
 
     csrf.init_app(app)
-
+    limiter.init_app(app)
     Talisman(
         app,
         force_https=False,
@@ -132,5 +139,12 @@ def create_app():
         return render_template(
             '403.html'
         ), 403
+    @app.errorhandler(429)
 
+    def ratelimit_handler(error):
+
+        return render_template(
+            '429.html'
+        ), 429
     return app
+    

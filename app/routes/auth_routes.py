@@ -15,7 +15,7 @@ from flask_login import (
 
 from app import csrf
 from app import db, bcrypt
-
+from app import limiter
 from app.utils.security import log_action
 
 from app.models.user import User
@@ -32,7 +32,9 @@ auth_bp = Blueprint(
 )
 
 @csrf.exempt
-
+@limiter.limit(
+    '3 per minute'
+)
 def register():
 
     if request.method == 'POST':
@@ -103,7 +105,9 @@ def register():
 )
 
 @csrf.exempt
-
+@limiter.limit(
+    '5 per minute'
+)
 def login():
 
     if request.method == 'POST':

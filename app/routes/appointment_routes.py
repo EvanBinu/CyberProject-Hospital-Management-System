@@ -20,7 +20,7 @@ from app import db, csrf
 from app.models.appointment import Appointment
 
 from app.utils.validators import allowed_file
-
+from app import limiter
 from app.utils.security import (
     role_required,
     log_action
@@ -192,7 +192,9 @@ def edit_appointment(id):
     'admin',
     'doctor'
 )
-
+@limiter.limit(
+    '10 per minute'
+)
 def upload_report(id):
 
     appointment = Appointment.query.get_or_404(id)

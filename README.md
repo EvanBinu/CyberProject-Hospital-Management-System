@@ -348,10 +348,59 @@ The application uses Flask-Talisman.
 * Prevents clickjacking
 * Improves browser security
 * Enhances secure communication
+---
+
+# 14. Rate Limiting and Brute Force Protection
+
+The system implements request rate limiting using Flask-Limiter to protect against abuse and automated attacks.
+
+## Features
+
+- Login request limiting
+- Registration spam prevention
+- Upload abuse prevention
+- IP-based request tracking
+- Custom 429 error handling page
+
+## Implemented Limits
+
+| Route | Limit |
+|---|---|
+| Login | 5 requests/minute |
+| Register | 3 requests/minute |
+| Upload Reports | 10 requests/minute |
+
+## Security Benefits
+
+### Brute Force Protection
+
+Prevents attackers from attempting unlimited password guesses.
+
+### Credential Stuffing Protection
+
+Limits automated login attacks using stolen credentials.
+
+### Upload Abuse Protection
+
+Prevents excessive file upload attacks.
+
+### Spam Prevention
+
+Reduces automated registration abuse.
+
+### Request Throttling
+
+Protects server resources from excessive requests.
+
+## Technologies Used
+
+- Flask-Limiter
+- get_remote_address
 
 ---
 
-# 14. Project Structure
+
+# 15 Project Structure
 
 ```text
 CyberProject-Hospital-Management-System/
@@ -485,34 +534,31 @@ http://127.0.0.1:5000
 
 # Security Features Summary
 
-| Feature                  | Implemented |
-| ------------------------ | ----------- |
-| Authentication           | Yes         |
-| RBAC                     | Yes         |
-| Secure Password Hashing  | Yes         |
-| SQL Injection Protection | Yes         |
-| CSRF Protection          | Yes         |
-| Security Headers         | Yes         |
-| Secure Upload Validation | Yes         |
-| Audit Logging            | Yes         |
-| Session Management       | Yes         |
-| Secure File Handling     | Yes         |
+| Feature                          | Implemented |
+| -------------------------------- | ----------- |
+| Authentication                   | Yes         |
+| RBAC                             | Yes         |
+| Secure Password Hashing          | Yes         |
+| SQL Injection Protection         | Yes         |
+| CSRF Protection                  | Yes         |
+| Security Headers                 | Yes         |
+| Secure Upload Validation         | Yes         |
+| Audit Logging                    | Yes         |
+| Session Management               | Yes         |
+| Secure File Handling             | Yes         |
+| Rate Limiting                    | Yes         |
+| Brute Force Protection           | Yes         |
+| Request Throttling               | Yes         |
+| Upload Abuse Protection          | Yes         |
+| Secure Filename Validation       | Yes         |
+| UUID-Based File Isolation        | Yes         |
+| Role-Based Route Authorization   | Yes         |
+| Protected CRUD Operations        | Yes         |
 
 ---
 
 # Future Improvements
 
-The following advanced features are planned for future development.
-
-## 1. Rate Limiting
-
-Using Flask-Limiter to prevent:
-
-* brute force attacks
-* API abuse
-* spam requests
-
----
 
 ## 2. Flask-WTF Secure Forms
 

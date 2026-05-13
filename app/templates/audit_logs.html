@@ -2,44 +2,104 @@
 
 {% block content %}
 
-<h2 class="mb-4">
-    Audit Logs
-</h2>
+<div class="animated">
 
-<table class="table table-bordered shadow">
+    <h2 class="mb-4">
+        <i class="fas fa-list me-2"></i>
+        Audit Logs
+    </h2>
 
-    <thead class="table-dark">
+    <div class="card shadow-glass border-0">
 
-        <tr>
+        <div class="card-header">
 
-            <th>User</th>
+            <h5 class="m-0 text-white">
+                <i class="fas fa-history me-2"></i>
+                System Activity History
+            </h5>
 
-            <th>Action</th>
+        </div>
 
-            <th>Timestamp</th>
+        <div class="table-responsive">
 
-        </tr>
+            <table class="table mb-0">
 
-    </thead>
+                <thead class="table-dark">
 
-    <tbody>
+                    <tr>
 
-        {% for log in logs %}
+                        <th><i class="fas fa-user me-2"></i>User</th>
 
-        <tr>
+                        <th><i class="fas fa-tasks me-2"></i>Action</th>
 
-            <td>{{ log.username }}</td>
+                        <th><i class="fas fa-clock me-2"></i>Timestamp</th>
 
-            <td>{{ log.action }}</td>
+                    </tr>
 
-            <td>{{ log.timestamp }}</td>
+                </thead>
 
-        </tr>
+                <tbody>
 
-        {% endfor %}
+                    {% if logs %}
 
-    </tbody>
+                        {% for log in logs %}
 
-</table>
+                        <tr>
+
+                            <td>
+
+                                <i class="fas fa-user-circle me-2" style="color: var(--primary);"></i>
+
+                                <strong>{{ log.username }}</strong>
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge badge-primary">
+
+                                    {{ log.action }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <i class="fas fa-calendar-alt me-2" style="color: var(--muted);"></i>
+
+                                {{ log.timestamp }}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="3" class="text-center py-4">
+
+                                <i class="fas fa-inbox" style="font-size: 3rem; color: var(--muted);"></i>
+
+                                <p class="text-muted mt-2">No audit logs available</p>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

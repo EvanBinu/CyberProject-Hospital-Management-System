@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -38,6 +38,7 @@ def create_app():
     )
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
     app.config['UPLOAD_FOLDER'] = (
         'app/static/uploads/reports'
     )
@@ -45,6 +46,13 @@ def create_app():
     app.config['MAX_CONTENT_LENGTH'] = (
         5 * 1024 * 1024
     )
+
+    # Create upload folder automatically
+    os.makedirs(
+        app.config['UPLOAD_FOLDER'],
+        exist_ok=True
+    )
+
     db.init_app(app)
 
     bcrypt.init_app(app)
@@ -53,7 +61,35 @@ def create_app():
 
     csrf.init_app(app)
 
-    Talisman(app)
+    Talisman(
+        app,
+        force_https=False,
+        content_security_policy={
+            'default-src': "'self'",
+            'script-src': [
+                "'self'",
+                'https://cdn.jsdelivr.net',
+                'https://cdnjs.cloudflare.com'
+            ],
+            'style-src': [
+                "'self'",
+                "'unsafe-inline'",
+                'https://cdn.jsdelivr.net',
+                'https://cdnjs.cloudflare.com',
+                'https://fonts.googleapis.com'
+            ],
+            'font-src': [
+                "'self'",
+                'https://fonts.gstatic.com',
+                'https://cdnjs.cloudflare.com'
+            ],
+            'img-src': [
+                "'self'",
+                'data:',
+                'https:'
+            ]
+        }
+    )
 
     login_manager.login_view = 'auth.login'
 
@@ -69,21 +105,32 @@ def create_app():
     from app.routes.patient_routes import patient_bp
 
     from app.routes.dashboard_routes import dashboard_bp
+
     from app.routes.appointment_routes import appointment_bp
+
     from app.routes.audit_routes import audit_bp
-    
+
     app.register_blueprint(auth_bp)
 
     app.register_blueprint(patient_bp)
 
     app.register_blueprint(dashboard_bp)
-    app.register_blueprint(appointment_bp)
-    app.register_blueprint(audit_bp)
-    @app.errorhandler(403)
 
+    app.register_blueprint(appointment_bp)
+
+    app.register_blueprint(audit_bp)
+
+    # Home route
+    @app.route('/')
+    def home():
+
+        return redirect('/login')
+
+    @app.errorhandler(403)
     def forbidden(error):
 
         return render_template(
             '403.html'
         ), 403
+
     return app

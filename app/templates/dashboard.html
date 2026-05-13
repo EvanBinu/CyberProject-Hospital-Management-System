@@ -2,71 +2,66 @@
 
 {% block content %}
 
-<h1 class="mb-4 fw-bold">
-    Dashboard
-</h1>
+<div class="animated">
 
-<div class="row g-4">
+    <h1 class="mb-5">
+        <i class="fas fa-tachometer-alt me-3"></i>
+        Dashboard
+    </h1>
 
-    <div class="col-md-4">
+    <div class="row g-4 mb-5">
 
-        <div class="card shadow border-0">
+        <div class="col-lg-4 col-md-6">
 
-            <div class="card-body text-center">
+            <div class="stat-card">
 
-                <h5 class="card-title">
-                    Total Patients
-                </h5>
+                <div class="mb-3">
+                    <i class="fas fa-users" style="font-size: 2.5rem; color: var(--primary);"></i>
+                </div>
 
-                <h1 class="display-4 text-primary">
+                <p class="stat-label">Total Patients</p>
 
-                    {{ total_patients }}
+                <div class="stat-number">{{ total_patients }}</div>
 
-                </h1>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-        <div class="card shadow border-0">
-
-            <div class="card-body text-center">
-
-                <h5 class="card-title">
-                    Total Appointments
-                </h5>
-
-                <h1 class="display-4 text-success">
-
-                    {{ total_appointments }}
-
-                </h1>
+                <small class="text-muted">Active patients in system</small>
 
             </div>
 
         </div>
 
-    </div>
+        <div class="col-lg-4 col-md-6">
 
-    <div class="col-md-4">
+            <div class="stat-card">
 
-        <div class="card shadow border-0">
+                <div class="mb-3">
+                    <i class="fas fa-calendar-check" style="font-size: 2.5rem; color: var(--secondary);"></i>
+                </div>
 
-            <div class="card-body text-center">
+                <p class="stat-label">Total Appointments</p>
 
-                <h5 class="card-title">
-                    Current Role
-                </h5>
+                <div class="stat-number">{{ total_appointments }}</div>
 
-                <h2 class="text-danger">
+                <small class="text-muted">Scheduled appointments</small>
 
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="mb-3">
+                    <i class="fas fa-user-tag" style="font-size: 2.5rem; color: var(--warning);"></i>
+                </div>
+
+                <p class="stat-label">Current Role</p>
+
+                <div class="stat-number" style="font-size: 1.8rem; text-transform: capitalize;">
                     {{ current_user.role }}
+                </div>
 
-                </h2>
+                <small class="text-muted">Your access level</small>
 
             </div>
 
@@ -74,26 +69,103 @@
 
     </div>
 
-</div>
+    <div class="card shadow-glass border-0">
 
-<div class="mt-5">
+        <div class="card-header">
 
-    <div class="card shadow border-0">
+            <h4 class="m-0 text-white">
+                <i class="fas fa-info-circle me-2"></i>
+                Welcome to Secure Hospital Management System
+            </h4>
+
+        </div>
 
         <div class="card-body">
 
-            <h4>
-                Welcome to Secure Hospital
-                Management System
-            </h4>
-
-            <p class="text-muted">
-
-                Manage patients, appointments,
-                reports, and hospital operations
-                securely.
-
+            <p class="lead mb-3">
+                <i class="fas fa-heart text-danger me-2"></i>
+                <strong>Comprehensive Healthcare Management</strong>
             </p>
+
+            <p class="text-muted mb-3">
+                Manage patients, appointments, reports, and hospital operations with our secure and intuitive platform.
+            </p>
+
+            <div class="row mt-4">
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="d-flex align-items-start">
+
+                        <i class="fas fa-check-circle text-success me-3 mt-1" style="font-size: 1.5rem;"></i>
+
+                        <div>
+
+                            <h6 class="fw-600 mb-1">Secure Patient Records</h6>
+
+                            <p class="text-muted small">All patient data is encrypted and securely stored</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="d-flex align-items-start">
+
+                        <i class="fas fa-check-circle text-success me-3 mt-1" style="font-size: 1.5rem;"></i>
+
+                        <div>
+
+                            <h6 class="fw-600 mb-1">Easy Scheduling</h6>
+
+                            <p class="text-muted small">Schedule and manage appointments efficiently</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="d-flex align-items-start">
+
+                        <i class="fas fa-check-circle text-success me-3 mt-1" style="font-size: 1.5rem;"></i>
+
+                        <div>
+
+                            <h6 class="fw-600 mb-1">Audit Logging</h6>
+
+                            <p class="text-muted small">Track all system activities for compliance</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="d-flex align-items-start">
+
+                        <i class="fas fa-check-circle text-success me-3 mt-1" style="font-size: 1.5rem;"></i>
+
+                        <div>
+
+                            <h6 class="fw-600 mb-1">Role-Based Access</h6>
+
+                            <p class="text-muted small">Fine-grained permission controls</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

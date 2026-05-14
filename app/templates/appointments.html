@@ -4,36 +4,105 @@
 
 <div class="animated">
 
-    <h2 class="mb-4">
-        <i class="fas fa-calendar-check me-2"></i>
-        Manage Appointments
-    </h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="mb-1">
+
+                <i class="fas fa-calendar-check me-2"></i>
+
+                Manage Appointments
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Total Appointments:
+                <strong>{{ appointments|length }}</strong>
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- SEARCH BAR -->
+
+    <div class="card shadow-glass border-0 mb-4">
+
+        <div class="card-body">
+
+            <form method="GET"
+                  action="/appointments">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+
+                        <i class="fas fa-search"></i>
+
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Search by patient, doctor, or status..."
+                        value="{{ request.args.get('search', '') }}"
+                    >
+
+                    <button class="btn btn-dark">
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ADD APPOINTMENT CARD -->
 
     <div class="card shadow-glass border-0 mb-4">
 
         <div class="card-header">
 
             <h5 class="m-0 text-white">
+
                 <i class="fas fa-plus-circle me-2"></i>
+
                 Schedule New Appointment
+
             </h5>
 
         </div>
 
         <div class="card-body">
 
-            <form method="POST" action="/add-appointment">
+            <form method="POST"
+                  action="/add-appointment">
 
                 <div class="row">
 
                     <div class="col-md-4 mb-3">
 
-                        <label class="form-label fw-600">Patient Name</label>
+                        <label class="form-label fw-600">
+
+                            Patient Name
+
+                        </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text bg-transparent border-end-0">
+
                                 <i class="fas fa-user text-primary"></i>
+
                             </span>
 
                             <input
@@ -50,12 +119,18 @@
 
                     <div class="col-md-4 mb-3">
 
-                        <label class="form-label fw-600">Doctor Name</label>
+                        <label class="form-label fw-600">
+
+                            Doctor Name
+
+                        </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text bg-transparent border-end-0">
+
                                 <i class="fas fa-user-md text-primary"></i>
+
                             </span>
 
                             <input
@@ -72,12 +147,18 @@
 
                     <div class="col-md-4 mb-3">
 
-                        <label class="form-label fw-600">Appointment Date</label>
+                        <label class="form-label fw-600">
+
+                            Appointment Date
+
+                        </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text bg-transparent border-end-0">
+
                                 <i class="fas fa-calendar text-primary"></i>
+
                             </span>
 
                             <input
@@ -94,8 +175,11 @@
                 </div>
 
                 <button class="btn btn-success">
+
                     <i class="fas fa-calendar-plus me-2"></i>
+
                     Schedule Appointment
+
                 </button>
 
             </form>
@@ -104,36 +188,77 @@
 
     </div>
 
+    <!-- APPOINTMENT TABLE -->
+
     <div class="card shadow-glass border-0">
 
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
             <h5 class="m-0 text-white">
+
                 <i class="fas fa-list me-2"></i>
+
                 Appointment Records
+
             </h5>
 
         </div>
 
         <div class="table-responsive">
 
-            <table class="table mb-0">
+            <table class="table table-hover align-middle mb-0">
 
                 <thead class="table-dark">
 
                     <tr>
 
-                        <th><i class="fas fa-user me-2"></i>Patient</th>
+                        <th>
 
-                        <th><i class="fas fa-user-md me-2"></i>Doctor</th>
+                            <i class="fas fa-user me-2"></i>
 
-                        <th><i class="fas fa-calendar-alt me-2"></i>Date</th>
+                            Patient
 
-                        <th><i class="fas fa-info-circle me-2"></i>Status</th>
+                        </th>
 
-                        <th><i class="fas fa-file me-2"></i>Report</th>
+                        <th>
 
-                        <th class="text-center"><i class="fas fa-cogs me-2"></i>Actions</th>
+                            <i class="fas fa-user-md me-2"></i>
+
+                            Doctor
+
+                        </th>
+
+                        <th>
+
+                            <i class="fas fa-calendar-alt me-2"></i>
+
+                            Date
+
+                        </th>
+
+                        <th>
+
+                            <i class="fas fa-info-circle me-2"></i>
+
+                            Status
+
+                        </th>
+
+                        <th>
+
+                            <i class="fas fa-file-medical me-2"></i>
+
+                            Report
+
+                        </th>
+
+                        <th class="text-center">
+
+                            <i class="fas fa-cogs me-2"></i>
+
+                            Actions
+
+                        </th>
 
                     </tr>
 
@@ -148,34 +273,69 @@
                         <tr>
 
                             <td>
-                                <strong>{{ appointment.patient_name }}</strong>
+
+                                <strong>
+
+                                    {{ appointment.patient_name }}
+
+                                </strong>
+
                             </td>
 
                             <td>
+
                                 {{ appointment.doctor_name }}
+
                             </td>
 
                             <td>
-                                <i class="fas fa-calendar-day me-1" style="color: var(--primary);"></i>
+
+                                <i class="fas fa-calendar-day me-1 text-primary"></i>
+
                                 {{ appointment.appointment_date }}
+
                             </td>
 
                             <td>
 
-                                {% if appointment.status == 'completed' %}
-                                    <span class="badge badge-success">
+                                {% if appointment.status == 'Completed' %}
+
+                                    <span class="badge bg-success">
+
                                         <i class="fas fa-check-circle me-1"></i>
+
                                         Completed
+
                                     </span>
-                                {% elif appointment.status == 'pending' %}
-                                    <span class="badge badge-primary">
+
+                                {% elif appointment.status == 'Pending' %}
+
+                                    <span class="badge bg-warning text-dark">
+
                                         <i class="fas fa-hourglass-half me-1"></i>
+
                                         Pending
+
                                     </span>
+
+                                {% elif appointment.status == 'Cancelled' %}
+
+                                    <span class="badge bg-danger">
+
+                                        <i class="fas fa-times-circle me-1"></i>
+
+                                        Cancelled
+
+                                    </span>
+
                                 {% else %}
-                                    <span class="badge" style="background: var(--gradient-2); color: white;">
+
+                                    <span class="badge bg-secondary">
+
                                         {{ appointment.status }}
+
                                     </span>
+
                                 {% endif %}
 
                             </td>
@@ -194,13 +354,18 @@
                                       class="btn btn-info btn-sm">
 
                                         <i class="fas fa-download me-1"></i>
-                                        View Report
+
+                                        View
 
                                     </a>
 
                                 {% else %}
 
-                                    <span class="text-muted">No Report</span>
+                                    <span class="text-muted">
+
+                                        No Report
+
+                                    </span>
 
                                 {% endif %}
 
@@ -208,30 +373,34 @@
 
                             <td class="text-center">
 
-                                <a href="/edit-appointment/{{ appointment.id }}"
-                                   class="btn btn-warning btn-sm"
-                                   title="Edit appointment">
+                                <div class="btn-group">
 
-                                    <i class="fas fa-edit"></i>
+                                    <a href="/edit-appointment/{{ appointment.id }}"
+                                       class="btn btn-warning btn-sm"
+                                       title="Edit Appointment">
 
-                                </a>
+                                        <i class="fas fa-edit"></i>
 
-                                <a href="/upload-report/{{ appointment.id }}"
-                                   class="btn btn-primary btn-sm"
-                                   title="Upload report">
+                                    </a>
 
-                                    <i class="fas fa-upload"></i>
+                                    <a href="/upload-report/{{ appointment.id }}"
+                                       class="btn btn-primary btn-sm"
+                                       title="Upload Report">
 
-                                </a>
+                                        <i class="fas fa-upload"></i>
 
-                                <a href="/delete-appointment/{{ appointment.id }}"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this appointment?')"
-                                   title="Delete appointment">
+                                    </a>
 
-                                    <i class="fas fa-trash"></i>
+                                    <a href="/delete-appointment/{{ appointment.id }}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Are you sure you want to delete this appointment?')"
+                                       title="Delete Appointment">
 
-                                </a>
+                                        <i class="fas fa-trash"></i>
+
+                                    </a>
+
+                                </div>
 
                             </td>
 
@@ -243,11 +412,23 @@
 
                         <tr>
 
-                            <td colspan="6" class="text-center py-4">
+                            <td colspan="6"
+                                class="text-center py-5">
 
-                                <i class="fas fa-inbox" style="font-size: 3rem; color: var(--muted);"></i>
+                                <i class="fas fa-calendar-times text-muted"
+                                   style="font-size: 4rem;"></i>
 
-                                <p class="text-muted mt-2">No appointments found. Schedule a new appointment to get started.</p>
+                                <h5 class="mt-3 text-muted">
+
+                                    No Appointments Found
+
+                                </h5>
+
+                                <p class="text-muted">
+
+                                    Schedule a new appointment or try a different search.
+
+                                </p>
 
                             </td>
 

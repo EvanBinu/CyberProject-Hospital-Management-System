@@ -24,7 +24,29 @@ patient_bp = Blueprint(
 
 def patients():
 
-    all_patients = Patient.query.all()
+    search = request.args.get(
+        'search'
+    )
+
+    if search:
+
+        all_patients = Patient.query.filter(
+
+            Patient.patient_name.ilike(
+                f'%{search}%'
+            )
+
+            |
+
+            Patient.diagnosis.ilike(
+                f'%{search}%'
+            )
+
+        ).all()
+
+    else:
+
+        all_patients = Patient.query.all()
 
     return render_template(
         'patients.html',

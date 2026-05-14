@@ -4,10 +4,64 @@
 
 <div class="animated">
 
-    <h2 class="mb-4">
-        <i class="fas fa-users me-2"></i>
-        Manage Patients
-    </h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="mb-1">
+                <i class="fas fa-users me-2"></i>
+                Manage Patients
+            </h2>
+
+            <p class="text-muted mb-0">
+                Total Patients:
+                <strong>{{ patients|length }}</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- SEARCH BAR -->
+
+    <div class="card shadow-glass border-0 mb-4">
+
+        <div class="card-body">
+
+            <form method="GET"
+                  action="/patients">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+
+                        <i class="fas fa-search"></i>
+
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Search by patient name or diagnosis..."
+                        value="{{ request.args.get('search', '') }}"
+                    >
+
+                    <button class="btn btn-dark">
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ADD PATIENT CARD -->
 
     <div class="card shadow-glass border-0 mb-4">
 
@@ -22,18 +76,25 @@
 
         <div class="card-body">
 
-            <form method="POST" action="/add-patient">
+            <form method="POST"
+                  action="/add-patient">
 
                 <div class="row">
 
                     <div class="col-md-4 mb-3">
 
-                        <label class="form-label fw-600">Patient Name</label>
+                        <label class="form-label fw-600">
+
+                            Patient Name
+
+                        </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text bg-transparent border-end-0">
+
                                 <i class="fas fa-user text-primary"></i>
+
                             </span>
 
                             <input
@@ -50,12 +111,18 @@
 
                     <div class="col-md-4 mb-3">
 
-                        <label class="form-label fw-600">Age</label>
+                        <label class="form-label fw-600">
+
+                            Age
+
+                        </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text bg-transparent border-end-0">
+
                                 <i class="fas fa-birthday-cake text-primary"></i>
+
                             </span>
 
                             <input
@@ -72,12 +139,18 @@
 
                     <div class="col-md-4 mb-3">
 
-                        <label class="form-label fw-600">Diagnosis</label>
+                        <label class="form-label fw-600">
+
+                            Diagnosis
+
+                        </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text bg-transparent border-end-0">
+
                                 <i class="fas fa-stethoscope text-primary"></i>
+
                             </span>
 
                             <input
@@ -95,8 +168,11 @@
                 </div>
 
                 <button class="btn btn-primary">
+
                     <i class="fas fa-user-plus me-2"></i>
+
                     Add Patient
+
                 </button>
 
             </form>
@@ -105,32 +181,61 @@
 
     </div>
 
+    <!-- PATIENT TABLE -->
+
     <div class="card shadow-glass border-0">
 
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
             <h5 class="m-0 text-white">
+
                 <i class="fas fa-list me-2"></i>
+
                 Patient Records
+
             </h5>
 
         </div>
 
         <div class="table-responsive">
 
-            <table class="table mb-0">
+            <table class="table table-hover align-middle mb-0">
 
                 <thead class="table-dark">
 
                     <tr>
 
-                        <th><i class="fas fa-id-card me-2"></i>Name</th>
+                        <th>
 
-                        <th><i class="fas fa-calendar me-2"></i>Age</th>
+                            <i class="fas fa-id-card me-2"></i>
 
-                        <th><i class="fas fa-diagnoses me-2"></i>Diagnosis</th>
+                            Name
 
-                        <th class="text-center"><i class="fas fa-cogs me-2"></i>Actions</th>
+                        </th>
+
+                        <th>
+
+                            <i class="fas fa-calendar me-2"></i>
+
+                            Age
+
+                        </th>
+
+                        <th>
+
+                            <i class="fas fa-diagnoses me-2"></i>
+
+                            Diagnosis
+
+                        </th>
+
+                        <th class="text-center">
+
+                            <i class="fas fa-cogs me-2"></i>
+
+                            Actions
+
+                        </th>
 
                     </tr>
 
@@ -145,35 +250,55 @@
                         <tr>
 
                             <td>
-                                <strong>{{ patient.patient_name }}</strong>
+
+                                <strong>
+
+                                    {{ patient.patient_name }}
+
+                                </strong>
+
                             </td>
 
-                            <td>{{ patient.age }} years</td>
+                            <td>
+
+                                {{ patient.age }} years
+
+                            </td>
 
                             <td>
-                                <span class="badge badge-primary">
+
+                                <span class="badge bg-primary">
+
                                     {{ patient.diagnosis }}
+
                                 </span>
+
                             </td>
 
                             <td class="text-center">
 
-                                <a href="/edit-patient/{{ patient.id }}"
-                                   class="btn btn-warning btn-sm">
+                                <div class="btn-group">
 
-                                    <i class="fas fa-edit me-1"></i>
-                                    Edit
+                                    <a href="/edit-patient/{{ patient.id }}"
+                                       class="btn btn-warning btn-sm">
 
-                                </a>
+                                        <i class="fas fa-edit me-1"></i>
 
-                                <a href="/delete-patient/{{ patient.id }}"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure?')">
+                                        Edit
 
-                                    <i class="fas fa-trash me-1"></i>
-                                    Delete
+                                    </a>
 
-                                </a>
+                                    <a href="/delete-patient/{{ patient.id }}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Are you sure you want to delete this patient?')">
+
+                                        <i class="fas fa-trash me-1"></i>
+
+                                        Delete
+
+                                    </a>
+
+                                </div>
 
                             </td>
 
@@ -185,11 +310,23 @@
 
                         <tr>
 
-                            <td colspan="4" class="text-center py-4">
+                            <td colspan="4"
+                                class="text-center py-5">
 
-                                <i class="fas fa-inbox" style="font-size: 3rem; color: var(--muted);"></i>
+                                <i class="fas fa-inbox text-muted"
+                                   style="font-size: 4rem;"></i>
 
-                                <p class="text-muted mt-2">No patients found. Add a new patient to get started.</p>
+                                <h5 class="mt-3 text-muted">
+
+                                    No Patients Found
+
+                                </h5>
+
+                                <p class="text-muted">
+
+                                    Add a new patient or try a different search.
+
+                                </p>
 
                             </td>
 

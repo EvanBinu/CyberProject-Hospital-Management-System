@@ -38,7 +38,35 @@ appointment_bp = Blueprint(
 
 def appointments():
 
-    all_appointments = Appointment.query.all()
+    search = request.args.get(
+        'search'
+    )
+
+    if search:
+
+        all_appointments = Appointment.query.filter(
+
+            Appointment.patient_name.ilike(
+                f'%{search}%'
+            )
+
+            |
+
+            Appointment.doctor_name.ilike(
+                f'%{search}%'
+            )
+
+            |
+
+            Appointment.status.ilike(
+                f'%{search}%'
+            )
+
+        ).all()
+
+    else:
+
+        all_appointments = Appointment.query.all()
 
     return render_template(
         'appointments.html',
